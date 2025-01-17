@@ -1,10 +1,9 @@
-package kg.org.glovoweb.DTOs;
+package kg.org.glovoweb.Requests;
 
 import lombok.Data;
 
 @Data
-public class userSignUpDTO {
-
+public class AuthRegisterRequest {
     private String username;
     private String email;
     private String password;
