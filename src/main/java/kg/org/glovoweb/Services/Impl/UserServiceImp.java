@@ -1,5 +1,6 @@
 package kg.org.glovoweb.Services.Impl;
 
+import kg.org.glovoweb.DTOs.userWithRoleDTO;
 import kg.org.glovoweb.Models.Role;
 import kg.org.glovoweb.Models.User;
 import kg.org.glovoweb.Repositories.RoleRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -72,5 +74,16 @@ public class UserServiceImp implements UserService {
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
+    }
+
+    public List<userWithRoleDTO> getAllUsersWithRoles() {
+        List<User> users = userRepository.findAllWithRoles();
+        return users.stream()
+                .map(user -> new userWithRoleDTO(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getEmail(),
+                        user.getRoles()
+                )).collect(Collectors.toList());
     }
 }

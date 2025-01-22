@@ -6,5 +6,8 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
 
     <!-- Ребята, это файл, который загружает файл с таблицами-->
-    <include file="./changes/14-01-init-all-tables-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="changes/1-init-all-tables-22-01-changelog.xml" relativeToChangelogFile="true"/>
+    <include file="changes/2-init-roles-22-01-changelog.xml" relativeToChangelogFile="true" />
+    <include file="changes/3-init-admin-22-01-changelog.xml" relativeToChangelogFile="true" />
+    <include file="changes/4-init-oasisTest-22-01-changelog.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

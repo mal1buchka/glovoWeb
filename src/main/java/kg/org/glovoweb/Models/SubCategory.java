@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 @Entity
-@Table(name = "categories")
-@Data
+@Table(name = "subcategories")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+@Data
+public class SubCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -23,6 +23,11 @@ public class Category {
     @Column(name = "image", columnDefinition = "LONGTEXT")
     private String image;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<SubCategory> subCategory;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToMany(mappedBy = "subcategory", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Establishment> establishment;
+
 }

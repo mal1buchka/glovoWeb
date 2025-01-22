@@ -25,10 +25,10 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "image")
+    @Column(name = "image", columnDefinition = "LONGTEXT")
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "establishment_id")
+    private Establishment establishment;
 }

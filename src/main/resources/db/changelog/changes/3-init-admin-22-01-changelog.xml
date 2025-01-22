@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="1737528571088-20" author="malibuchka">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM users WHERE username = 'admin';
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="users">
+            <column name="id" value="1"/> <!-- Уникальный ID для пользователя -->
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$10$gXATjDWCrjlJBnHQqaLRxeeb9JunO2TVWGAeRe62VRDXz.ou2cQd."/>
+            <column name="email" value="admin@example.com"/>
+        </insert>
+
+        <insert tableName="users_roles">
+            <column name="user_id" value="1"/> <!-- ID пользователя -->
+            <column name="role_id" value="2"/> <!-- ID роли ADMIN -->
+        </insert>
+    </changeSet>
+</databaseChangeLog>

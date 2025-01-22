@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1737528571088-1" author="malibuchka">
+        <createTable tableName="categories">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_categories"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="image" type="LONGTEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-2" author="malibuchka">
+        <createTable tableName="establishments">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_establishments"/>
+            </column>
+            <column name="image" type="LONGTEXT"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="subcategory_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-3" author="malibuchka">
+        <createTable tableName="order_items">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_order_items"/>
+            </column>
+            <column name="order_id" type="VARCHAR(255)"/>
+            <column name="product_id" type="VARCHAR(255)"/>
+            <column name="quantity" type="INT"/>
+            <column name="price" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-4" author="malibuchka">
+        <createTable tableName="orders">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_orders"/>
+            </column>
+            <column name="user_id" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="total_price" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-5" author="malibuchka">
+        <createTable tableName="products">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_products"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="price" type="DOUBLE"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="image" type="LONGTEXT"/>
+            <column name="establishment_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-6" author="malibuchka">
+        <createTable tableName="roles">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_roles"/>
+            </column>
+            <column name="role_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-7" author="malibuchka">
+        <createTable tableName="subcategories">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_subcategories"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="image" type="LONGTEXT"/>
+            <column name="category_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-8" author="malibuchka">
+        <createTable tableName="users">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-9" author="malibuchka">
+        <createTable tableName="users_roles">
+            <column name="role_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1737528571088-10" author="malibuchka">
+        <addForeignKeyConstraint baseColumnNames="subcategory_id" baseTableName="establishments"
+                                 constraintName="FK_ESTABLISHMENTS_ON_SUBCATEGORY" referencedColumnNames="id"
+                                 referencedTableName="subcategories"/>
+    </changeSet>
+    <changeSet id="1737528571088-11" author="malibuchka">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="orders" constraintName="FK_ORDERS_ON_USER"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1737528571088-12" author="malibuchka">
+        <addForeignKeyConstraint baseColumnNames="order_id" baseTableName="order_items"
+                                 constraintName="FK_ORDER_ITEMS_ON_ORDER" referencedColumnNames="id"
+                                 referencedTableName="orders"/>
+    </changeSet>
+    <changeSet id="1737528571088-13" author="malibuchka">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="order_items"
+                                 constraintName="FK_ORDER_ITEMS_ON_PRODUCT" referencedColumnNames="id"
+                                 referencedTableName="products"/>
+    </changeSet>
+    <changeSet id="1737528571088-14" author="malibuchka">
+        <addForeignKeyConstraint baseColumnNames="establishment_id" baseTableName="products"
+                                 constraintName="FK_PRODUCTS_ON_ESTABLISHMENT" referencedColumnNames="id"
+                                 referencedTableName="establishments"/>
+    </changeSet>
+    <changeSet id="1737528571088-15" author="malibuchka">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="subcategories"
+                                 constraintName="FK_SUBCATEGORIES_ON_CATEGORY" referencedColumnNames="id"
+                                 referencedTableName="categories"/>
+    </changeSet>
+    <changeSet id="1737528571088-16" author="malibuchka">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users_roles"
+                                 constraintName="fk_userol_on_role" referencedColumnNames="id"
+                                 referencedTableName="roles"/>
+    </changeSet>
+    <changeSet id="1737528571088-17" author="malibuchka">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_roles"
+                                 constraintName="fk_userol_on_user" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>
